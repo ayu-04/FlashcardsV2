@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <body>
+    <br/>
+    <h1>{{u.username}}</h1>
+    <br>
+    {%if played|length >0%}
+    <h2 style="text-align:center">Played</h2>
+        <table style="border: 2px solid black; align="center">
+        <thead>
+            <th style="border: 1px solid black; padding: 20px">Title</th>
+            <th style="border: 1px solid black; padding: 20px">Recent score</th>
+            <th style="border: 1px solid black; padding: 20px">Last played</th>
+            <th style="border: 1px solid black; padding: 20px">Performance</th>
+        </thead>
+            <tbody>
+                {%for i in played%}
+                <tr>
+                <td style="border: 1px solid black; padding: 20px">
+                   <h3> {{ i.title }}</h3>
+                  <br />
+                  <br />
+                </td>
+                <td style="border: 1px solid black; padding: 20px">
+                  {{ i.rec_score }}
+                  <br />
+                  <br />
+                </td>
+                <td style="border: 1px solid black; padding: 20px">
+                  {{ i.date_time }}
+                  <br />
+                  <br />
+                </td>
+                <td style="border: 1px solid black; padding: 20px">
+                    {%if i.rec_score/(tot[i.title])<0.4%}
+                    <b style="color: red">Poor</b>
+                    {%elif i.rec_score/(tot[i.title])<0.8%}
+                    <b style="color:orange">Average</b>
+                    {%else%}
+                    <b style="color:green">Excellent</b>
+                    {%endif%}
+                    <br />
+                    <br />
+                </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {%endif%}
+    {%if notplayed|length >0%}
+    <h2 style="text-align:center">Not played</h2>
+    <br>
+    <ul>
+    {%for i in notplayed%}
+    <li>
+    <h3>{{i.title}}</h3>
+    </li>
+    {%endfor%}
+    </ul>
+    {%endif%}
+    </body>
+</html>
